@@ -298,6 +298,27 @@ body {
 .timeline-desc {
   font-size: 14px; color: var(--text-light);
 }
+
+/* ========== Milestone Images ========== */
+.timeline-img {
+  width: 100%; margin-top: 14px; border-radius: 12px;
+  overflow: hidden; position: relative; display: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  border: 1px solid var(--border);
+}
+.timeline-img.visible { display: block; }
+.timeline-img img {
+  width: 100%; height: 160px; object-fit: cover;
+  display: block; transition: transform .3s;
+  cursor: pointer;
+}
+.timeline-img:hover img { transform: scale(1.03); }
+.timeline-img .img-placeholder {
+  width: 100%; height: 120px;
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; color: #ddd;
+}
 .timeline-icon { font-size: 20px; }
 
 /* ========== Gallery ========== */
@@ -770,20 +791,20 @@ const INLINE_DATA = {
     "motto": "小火车，出发啦！🚂"
   },
   "milestones": [
-    { "date": "2022-03-05", "title": "安安来到了这个世界", "description": "一声啼哭，全家欢喜！安安，欢迎你！", "icon": "🌟" },
-    { "date": "2022-03-05", "title": "第一次和妈妈亲吻合影", "description": "刚出生的安安和妈妈的第一个亲吻，最珍贵的瞬间。", "icon": "💋" },
-    { "date": "2022-07", "title": "在家第一次拍艺术照", "description": "安安的第一个艺术照，萌化了所有人！", "icon": "📸" },
-    { "date": "2022-08-29", "title": "第一次跟爸爸妈妈去露营", "description": "安安的第一次露营之旅，在大自然中甜甜入睡。", "icon": "⛺" },
-    { "date": "2022-09-14", "title": "安安出生100天庆典", "description": "100天的小宝贝，全家一起庆祝这个特别的日子！", "icon": "🎉" },
-    { "date": "2023-02-22", "title": "一周岁啦", "description": "安安一岁生日快乐！这一年你带来了太多惊喜和幸福。", "icon": "🎂" },
-    { "date": "2023-07-23", "title": "第一次在游泳池下水咯", "description": "安安第一次下泳池，扑腾着小手小脚，超级勇敢！", "icon": "🏊" },
-    { "date": "2023-10-18", "title": "第一次坐爷爷的大巴车还是司机哟", "description": "安安坐上了爷爷的大巴车，还当了一把小司机，超神气！", "icon": "🚌" },
-    { "date": "2024-03-12", "title": "两岁啦", "description": "两岁的安安越来越聪明可爱，每天都有新花样！", "icon": "🎂" },
-    { "date": "2024-10-27", "title": "第一次跟爸爸妈妈去旅行，坐上了犍为小火车", "description": "安安第一次出远门旅行，终于坐上了心心念念的犍为小火车！🚂", "icon": "🚂" },
-    { "date": "2025-03-03", "title": "三岁啦", "description": "三岁的安安已经是小大人了，会表达、会撒娇、会逗人开心！", "icon": "🎂" },
-    { "date": "2025-05-04", "title": "第一次跟爸爸妈妈去爬山", "description": "安安第一次爬山，小小的身影一步一步往上走，了不起！", "icon": "⛰️" },
-    { "date": "2025-12", "title": "第一次上台走秀", "description": "安安第一次登上舞台走秀，自信满满，全场最靓的仔！", "icon": "👗" },
-    { "date": "2026-03-21", "title": "4岁啦", "description": "四岁的安安，小火车还在前行，下一站更精彩！", "icon": "🎂" }
+    { "date": "2022-03-05", "title": "安安来到了这个世界", "description": "一声啼哭，全家欢喜！安安，欢迎你！", "icon": "🌟", "image": "" },
+    { "date": "2022-03-05", "title": "第一次和妈妈亲吻合影", "description": "刚出生的安安和妈妈的第一个亲吻，最珍贵的瞬间。", "icon": "💋", "image": "" },
+    { "date": "2022-07", "title": "在家第一次拍艺术照", "description": "安安的第一个艺术照，萌化了所有人！", "icon": "📸", "image": "" },
+    { "date": "2022-08-29", "title": "第一次跟爸爸妈妈去露营", "description": "安安的第一次露营之旅，在大自然中甜甜入睡。", "icon": "⛺", "image": "" },
+    { "date": "2022-09-14", "title": "安安出生100天庆典", "description": "100天的小宝贝，全家一起庆祝这个特别的日子！", "icon": "🎉", "image": "" },
+    { "date": "2023-02-22", "title": "一周岁啦", "description": "安安一岁生日快乐！这一年你带来了太多惊喜和幸福。", "icon": "🎂", "image": "" },
+    { "date": "2023-07-23", "title": "第一次在游泳池下水咯", "description": "安安第一次下泳池，扑腾着小手小脚，超级勇敢！", "icon": "🏊", "image": "" },
+    { "date": "2023-10-18", "title": "第一次坐爷爷的大巴车还是司机哟", "description": "安安坐上了爷爷的大巴车，还当了一把小司机，超神气！", "icon": "🚌", "image": "" },
+    { "date": "2024-03-12", "title": "两岁啦", "description": "两岁的安安越来越聪明可爱，每天都有新花样！", "icon": "🎂", "image": "" },
+    { "date": "2024-10-27", "title": "第一次跟爸爸妈妈去旅行，坐上了犍为小火车", "description": "安安第一次出远门旅行，终于坐上了心心念念的犍为小火车！🚂", "icon": "🚂", "image": "" },
+    { "date": "2025-03-03", "title": "三岁啦", "description": "三岁的安安已经是小大人了，会表达、会撒娇、会逗人开心！", "icon": "🎂", "image": "" },
+    { "date": "2025-05-04", "title": "第一次跟爸爸妈妈去爬山", "description": "安安第一次爬山，小小的身影一步一步往上走，了不起！", "icon": "⛰️", "image": "" },
+    { "date": "2025-12", "title": "第一次上台走秀", "description": "安安第一次登上舞台走秀，自信满满，全场最靓的仔！", "icon": "👗", "image": "" },
+    { "date": "2026-03-21", "title": "4岁啦", "description": "四岁的安安，小火车还在前行，下一站更精彩！", "icon": "🎂", "image": "" }
   ],
   "photos": [
     { "id": 1, "title": "出生第一天", "date": "2022-03-05", "description": "小小的安安，大大的世界", "image": "" },
@@ -868,6 +889,10 @@ function renderTimeline() {
         <div class="timeline-date">${m.date}</div>
         <div class="timeline-title">${m.title}</div>
         <div class="timeline-desc">${m.description}</div>
+        <div class="timeline-img ${m.image ? 'visible' : ''}" ${m.image ? `onclick="openLightbox('${m.image}')"` : ''}>
+          <span class="img-placeholder">📷</span>
+          <img src="${m.image}" alt="${m.title}" onload="this.parentElement.querySelector('.img-placeholder').style.display='none'" onerror="this.style.display='none'">
+        </div>
       </div>
     </div>
   `).join('');
