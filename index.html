@@ -321,6 +321,19 @@ body {
 }
 .timeline-icon { font-size: 20px; }
 
+/* ========== Milestone Video ========== */
+.timeline-video {
+  width: 100%; margin-top: 14px; border-radius: 12px;
+  overflow: hidden; position: relative; display: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  border: 1px solid var(--border);
+}
+.timeline-video.visible { display: block; }
+.timeline-video video {
+  width: 100%; display: block; border-radius: 12px;
+  outline: none;
+}
+
 /* ========== Gallery ========== */
 .gallery-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -791,20 +804,20 @@ const INLINE_DATA = {
     "motto": "小火车，出发啦！🚂"
   },
   "milestones": [
-    { "date": "2022-03-05", "title": "安安来到了这个世界", "description": "一声啼哭，全家欢喜！安安，欢迎你！", "icon": "🌟", "image": "" },
-    { "date": "2022-03-05", "title": "第一次和妈妈亲吻合影", "description": "刚出生的安安和妈妈的第一个亲吻，最珍贵的瞬间。", "icon": "💋", "image": "" },
-    { "date": "2022-07", "title": "在家第一次拍艺术照", "description": "安安的第一个艺术照，萌化了所有人！", "icon": "📸", "image": "" },
-    { "date": "2022-08-29", "title": "第一次跟爸爸妈妈去露营", "description": "安安的第一次露营之旅，在大自然中甜甜入睡。", "icon": "⛺", "image": "" },
-    { "date": "2022-09-14", "title": "安安出生100天庆典", "description": "100天的小宝贝，全家一起庆祝这个特别的日子！", "icon": "🎉", "image": "" },
-    { "date": "2023-02-22", "title": "一周岁啦", "description": "安安一岁生日快乐！这一年你带来了太多惊喜和幸福。", "icon": "🎂", "image": "" },
-    { "date": "2023-07-23", "title": "第一次在游泳池下水咯", "description": "安安第一次下泳池，扑腾着小手小脚，超级勇敢！", "icon": "🏊", "image": "" },
-    { "date": "2023-10-18", "title": "第一次坐爷爷的大巴车还是司机哟", "description": "安安坐上了爷爷的大巴车，还当了一把小司机，超神气！", "icon": "🚌", "image": "" },
-    { "date": "2024-03-12", "title": "两岁啦", "description": "两岁的安安越来越聪明可爱，每天都有新花样！", "icon": "🎂", "image": "" },
-    { "date": "2024-10-27", "title": "第一次跟爸爸妈妈去旅行，坐上了犍为小火车", "description": "安安第一次出远门旅行，终于坐上了心心念念的犍为小火车！🚂", "icon": "🚂", "image": "" },
-    { "date": "2025-03-03", "title": "三岁啦", "description": "三岁的安安已经是小大人了，会表达、会撒娇、会逗人开心！", "icon": "🎂", "image": "" },
-    { "date": "2025-05-04", "title": "第一次跟爸爸妈妈去爬山", "description": "安安第一次爬山，小小的身影一步一步往上走，了不起！", "icon": "⛰️", "image": "" },
-    { "date": "2025-12", "title": "第一次上台走秀", "description": "安安第一次登上舞台走秀，自信满满，全场最靓的仔！", "icon": "👗", "image": "" },
-    { "date": "2026-03-21", "title": "4岁啦", "description": "四岁的安安，小火车还在前行，下一站更精彩！", "icon": "🎂", "image": "" }
+    { "date": "2022-03-05", "title": "安安来到了这个世界", "description": "一声啼哭，全家欢喜！安安，欢迎你！", "icon": "🌟", "image": "photos/milestone-01-birth.jpg", "video": "" },
+    { "date": "2022-03-05", "title": "第一次和妈妈亲吻合影", "description": "刚出生的安安和妈妈的第一个亲吻，最珍贵的瞬间。", "icon": "💋", "image": "photos/milestone-02-kiss.jpg", "video": "" },
+    { "date": "2022-07", "title": "在家第一次拍艺术照", "description": "安安的第一个艺术照，萌化了所有人！", "icon": "📸", "image": "photos/milestone-03-photo.jpg", "video": "" },
+    { "date": "2022-08-29", "title": "第一次跟爸爸妈妈去露营", "description": "安安的第一次露营之旅，在大自然中甜甜入睡。", "icon": "⛺", "image": "photos/milestone-04-camping.jpg", "video": "" },
+    { "date": "2022-09-14", "title": "安安出生100天庆典", "description": "100天的小宝贝，全家一起庆祝这个特别的日子！", "icon": "🎉", "image": "photos/milestone-05-100days.jpg", "video": "" },
+    { "date": "2023-02-22", "title": "一周岁啦", "description": "安安一岁生日快乐！这一年你带来了太多惊喜和幸福。", "icon": "🎂", "image": "photos/milestone-06-1year.jpg", "video": "" },
+    { "date": "2023-07-23", "title": "第一次在游泳池下水咯", "description": "安安第一次下泳池，扑腾着小手小脚，超级勇敢！", "icon": "🏊", "image": "photos/milestone-07-swim.jpg", "video": "" },
+    { "date": "2023-10-18", "title": "第一次坐爷爷的大巴车还是司机哟", "description": "安安坐上了爷爷的大巴车，还当了一把小司机，超神气！", "icon": "🚌", "image": "photos/milestone-08-bus.jpg", "video": "" },
+    { "date": "2024-03-12", "title": "两岁啦", "description": "两岁的安安越来越聪明可爱，每天都有新花样！", "icon": "🎂", "image": "photos/milestone-09-2years.jpg", "video": "" },
+    { "date": "2024-10-27", "title": "第一次跟爸爸妈妈去旅行，坐上了犍为小火车", "description": "安安第一次出远门旅行，终于坐上了心心念念的犍为小火车！🚂", "icon": "🚂", "image": "", "video": "photos/milestone-10-train.mp4" },
+    { "date": "2025-03-03", "title": "三岁啦", "description": "三岁的安安已经是小大人了，会表达、会撒娇、会逗人开心！", "icon": "🎂", "image": "photos/milestone-11-3years.jpg", "video": "" },
+    { "date": "2025-05-04", "title": "第一次跟爸爸妈妈去爬山", "description": "安安第一次爬山，小小的身影一步一步往上走，了不起！", "icon": "⛰️", "image": "photos/milestone-12-hiking.jpg", "video": "" },
+    { "date": "2025-12", "title": "第一次上台走秀", "description": "安安第一次登上舞台走秀，自信满满，全场最靓的仔！", "icon": "👗", "image": "photos/milestone-13-fashion.jpg", "video": "" },
+    { "date": "2026-03-21", "title": "4岁啦", "description": "四岁的安安，小火车还在前行，下一站更精彩！", "icon": "🎂", "image": "", "video": "" }
   ],
   "photos": [
     { "id": 1, "title": "出生第一天", "date": "2022-03-05", "description": "小小的安安，大大的世界", "image": "" },
@@ -882,20 +895,32 @@ function renderHero() {
 // ==================== Timeline ====================
 function renderTimeline() {
   const list = document.getElementById('timelineList');
-  list.innerHTML = appData.milestones.map((m, i) => `
+  list.innerHTML = appData.milestones.map((m, i) => {
+    const hasMedia = m.image || m.video;
+    let mediaHtml = '';
+    if (m.video) {
+      mediaHtml = `
+        <div class="timeline-video visible">
+          <video src="${m.video}" controls preload="metadata" playsinline onclick="event.stopPropagation()"></video>
+        </div>`;
+    } else if (m.image) {
+      mediaHtml = `
+        <div class="timeline-img visible" onclick="openLightbox('${m.image}')">
+          <span class="img-placeholder">📷</span>
+          <img src="${m.image}" alt="${m.title}" onload="this.parentElement.querySelector('.img-placeholder').style.display='none'" onerror="this.style.display='none'">
+        </div>`;
+    }
+    return `
     <div class="timeline-item fade-in">
       <div class="timeline-dot"><span class="timeline-icon">${m.icon || '🚂'}</span></div>
       <div class="timeline-content">
         <div class="timeline-date">${m.date}</div>
         <div class="timeline-title">${m.title}</div>
         <div class="timeline-desc">${m.description}</div>
-        <div class="timeline-img ${m.image ? 'visible' : ''}" ${m.image ? `onclick="openLightbox('${m.image}')"` : ''}>
-          <span class="img-placeholder">📷</span>
-          <img src="${m.image}" alt="${m.title}" onload="this.parentElement.querySelector('.img-placeholder').style.display='none'" onerror="this.style.display='none'">
-        </div>
+        ${mediaHtml}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ==================== Photos ====================
