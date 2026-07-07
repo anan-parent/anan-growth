@@ -544,6 +544,79 @@ body {
 }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+/* ========== Particle Canvas ========== */
+.particles-canvas {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+}
+
+/* ========== Scroll Progress Bar ========== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  z-index: 1000; width: 0%; transition: width .1s;
+}
+
+/* ========== Loading Screen ========== */
+.loading-screen {
+  position: fixed; inset: 0; z-index: 99999;
+  background: linear-gradient(135deg, var(--sky), var(--grass));
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; transition: opacity .8s, transform .8s;
+}
+.loading-screen.hidden {
+  opacity: 0; pointer-events: none; transform: scale(1.1);
+}
+.loading-train {
+  font-size: 64px; animation: loading-bounce 1s ease-in-out infinite;
+}
+@keyframes loading-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.loading-text {
+  color: #fff; font-size: 18px; margin-top: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.loading-track {
+  width: 200px; height: 4px; background: rgba(255,255,255,.3);
+  border-radius: 2px; margin-top: 12px; overflow: hidden;
+}
+.loading-track-inner {
+  height: 100%; background: #fff; border-radius: 2px;
+  width: 0%; animation: loading-progress 2s ease-out forwards;
+}
+@keyframes loading-progress {
+  0% { width: 0%; } 100% { width: 100%; }
+}
+
+/* ========== Enhanced Lightbox ========== */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9998;
+  background: rgba(0,0,0,.9); display: none;
+  align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; transition: opacity .3s;
+}
+.lightbox.active { display: flex; opacity: 1; }
+.lightbox img {
+  max-width: 90vw; max-height: 90vh; border-radius: 8px;
+  transform: scale(.8); transition: transform .3s;
+}
+.lightbox.active img { transform: scale(1); }
+.lightbox .lb-caption {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: 14px; background: rgba(0,0,0,.5);
+  padding: 6px 16px; border-radius: 20px;
+}
+
+/* ========== 3D Card Hover ========== */
+.gallery-card-3d {
+  transform-style: preserve-3d;
+  transition: transform .4s;
+}
+.gallery-card-3d:hover {
+  transform: perspective(600px) rotateY(5deg) rotateX(-3deg) translateY(-8px);
+}
+
 /* ========== Signal Light Decoration ========== */
 .signal-light {
   display: flex; flex-direction: column; align-items: center;
@@ -561,6 +634,204 @@ body {
 .signal-light.go .yellow { background: #555; }
 .signal-light.go .green { background: #2ecc71; box-shadow: 0 0 10px #2ecc71; }
 
+/* ========== Wish Wall ========== */
+.wish-wall {
+  position: relative; min-height: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px; padding: 40px 20px;
+  overflow: hidden;
+}
+.wish-wall::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.wish-sticky {
+  position: absolute; width: 160px; padding: 16px;
+  background: #fff; border-radius: 4px;
+  box-shadow: 2px 4px 12px rgba(0,0,0,.15);
+  transform: rotate(var(--rotate, -3deg));
+  transition: transform .3s, box-shadow .3s; z-index: 2;
+  cursor: pointer;
+}
+.wish-sticky:hover {
+  transform: rotate(0deg) scale(1.05) translateY(-5px);
+  box-shadow: 4px 8px 20px rgba(0,0,0,.2); z-index: 10;
+}
+.wish-sticky::after {
+  content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 14px; background: rgba(0,0,0,.15); border-radius: 2px;
+}
+.wish-sticky-text { font-size: 14px; line-height: 1.6; color: var(--text); }
+.wish-sticky-author { font-size: 12px; color: var(--text-light); margin-top: 8px; }
+.wish-sticky-date { font-size: 11px; color: #bbb; }
+.wish-colors-1 { background: #FFF9C4; }
+.wish-colors-2 { background: #B3E5FC; }
+.wish-colors-3 { background: #C8E6C9; }
+.wish-colors-4 { background: #FFCCBC; }
+.wish-colors-5 { background: #E1BEE7; }
+.wish-add-btn {
+  position: relative; z-index: 5;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 24px; border-radius: 25px;
+  background: rgba(255,255,255,.2); backdrop-filter: blur(4px);
+  border: 2px solid rgba(255,255,255,.4); color: #fff;
+  font-size: 14px; cursor: pointer; transition: all .3s;
+  margin-bottom: 20px;
+}
+.wish-add-btn:hover { background: rgba(255,255,255,.35); transform: scale(1.05); }
+.wish-form {
+  display: none; max-width: 400px; margin: 0 auto 20px;
+  background: rgba(255,255,255,.95); border-radius: 16px;
+  padding: 24px; position: relative; z-index: 5;
+}
+.wish-form.active { display: block; }
+.wish-form textarea {
+  width: 100%; padding: 12px; border-radius: 8px;
+  border: 2px solid var(--border); font-size: 14px;
+  resize: vertical; min-height: 80px; font-family: inherit;
+}
+.wish-form .form-actions { display: flex; gap: 10px; margin-top: 12px; justify-content: flex-end; }
+.wish-form button {
+  padding: 8px 20px; border-radius: 20px; border: none;
+  cursor: pointer; font-size: 14px; transition: all .2s;
+}
+.wish-form .btn-submit { background: var(--primary); color: #fff; }
+.wish-form .btn-submit:hover { background: var(--primary-dark); }
+.wish-form .btn-cancel { background: var(--border); color: var(--text); }
+
+/* ========== Travel Map ========== */
+.map-container {
+  background: var(--bg-card); border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06); border: 1px solid var(--border);
+  padding: 28px; position: relative; overflow: hidden;
+}
+.map-svg {
+  width: 100%; height: 300px; border-radius: 12px;
+  background: linear-gradient(180deg, #E3F2FD, #BBDEFB);
+}
+.map-pin {
+  cursor: pointer; transition: transform .3s;
+  transform-origin: center bottom;
+}
+.map-pin:hover { transform: scale(1.3); }
+.map-tooltip {
+  position: absolute; background: #fff; padding: 8px 14px;
+  border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  font-size: 13px; pointer-events: none; opacity: 0;
+  transition: opacity .3s; z-index: 10;
+}
+.map-tooltip.active { opacity: 1; }
+
+/* ========== Quiz Section ========== */
+.quiz-card {
+  background: var(--bg-card); border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06); border: 1px solid var(--border);
+  padding: 32px; max-width: 600px; margin: 0 auto;
+  text-align: center;
+}
+.quiz-question {
+  font-size: 20px; font-weight: 700; margin-bottom: 24px;
+  color: var(--text);
+}
+.quiz-options { display: flex; flex-direction: column; gap: 12px; }
+.quiz-option {
+  padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border);
+  background: var(--bg); cursor: pointer; font-size: 15px;
+  transition: all .2s; text-align: left;
+}
+.quiz-option:hover { border-color: var(--primary); background: rgba(232,93,58,.04); }
+.quiz-option.correct { border-color: #4caf50; background: rgba(76,175,80,.1); }
+.quiz-option.wrong { border-color: #f44336; background: rgba(244,67,54,.1); }
+.quiz-score {
+  font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 20px;
+}
+.quiz-restart {
+  padding: 10px 28px; border-radius: 20px; border: none;
+  background: var(--primary); color: #fff; font-size: 15px;
+  cursor: pointer; margin-top: 16px; transition: all .2s;
+}
+.quiz-restart:hover { background: var(--primary-dark); transform: scale(1.05); }
+
+/* ========== Milestone Check Progress ========== */
+.milestone-progress {
+  background: var(--bg-card); border-radius: 16px;
+  padding: 24px; margin-bottom: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06);
+}
+.milestone-progress-bar {
+  height: 12px; background: var(--border); border-radius: 6px; overflow: hidden;
+}
+.milestone-progress-fill {
+  height: 100%; border-radius: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 1s ease-out;
+}
+.milestone-stats {
+  display: flex; justify-content: space-around; margin-top: 16px;
+  text-align: center;
+}
+.milestone-stat-number {
+  font-size: 28px; font-weight: 800; color: var(--primary);
+}
+.milestone-stat-label { font-size: 13px; color: var(--text-light); }
+
+/* ========== Interactive Heart Like ========== */
+.heart-btn {
+  background: none; border: none; font-size: 24px; cursor: pointer;
+  transition: transform .2s; padding: 4px;
+}
+.heart-btn:hover { transform: scale(1.2); }
+.heart-btn.liked { animation: heart-beat .6s; }
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.15); }
+}
+
+/* ========== Parallax Hero Enhancement ========== */
+.hero { will-change: transform; }
+.hero-content { will-change: transform; }
+
+/* ========== Enhanced Nav ========== */
+.nav {
+  background: rgba(255,248,240,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(224,213,199,.5);
+}
+.nav-link { font-weight: 500; }
+.nav-link.active { background: var(--primary); color: #fff; }
+
+/* ========== Confetti Animation ========== */
+.confetti-piece {
+  position: fixed; z-index: 9999; pointer-events: none;
+  animation: confetti-fall 3s ease-out forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ========== Enhanced Timeline Interactions ========== */
+.timeline-item { transition: transform .4s; }
+.timeline-item:hover { transform: scale(1.01); }
+.timeline-content { position: relative; overflow: hidden; }
+.timeline-content::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s;
+}
+.timeline-content:hover::before { transform: scaleX(1); }
+
+/* ========== Section Entrance Animations ========== */
+.section-entrance {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .8s ease-out, transform .8s ease-out;
+}
+.section-entrance.visible {
+  opacity: 1; transform: translateY(0);
+}
+
 /* Lightbox */
 .lightbox {
   position: fixed; inset: 0; z-index: 9998;
@@ -573,6 +844,28 @@ body {
 </style>
 </head>
 <body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-train">🚂</div>
+  <div class="loading-text">安安的小火车正在进站...</div>
+  <div class="loading-track"><div class="loading-track-inner"></div></div>
+</div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Particle Canvas -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="" alt="">
+  <div class="lb-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- Tooltip for Map -->
+<div class="map-tooltip" id="mapTooltip"></div>
 
 <!-- Password Gate -->
 <div id="gate">
@@ -597,11 +890,14 @@ body {
     <div class="nav-logo">🚂 安安号</div>
     <div class="nav-links">
       <a href="#timeline" class="nav-link">时间轴</a>
+      <a href="#map" class="nav-link">旅行足迹</a>
       <a href="#photos" class="nav-link">照片</a>
       <a href="#videos" class="nav-link">视频</a>
       <a href="#quotes" class="nav-link">童言童语</a>
+      <a href="#quiz" class="nav-link">安安问答</a>
       <a href="#growth" class="nav-link">成长数据</a>
       <a href="#letters" class="nav-link">给未来的信</a>
+      <a href="#wishes" class="nav-link">心愿墙</a>
     </div>
   </div>
 </nav>
@@ -684,7 +980,80 @@ body {
       <div class="section-icon">🛤️</div>
       <h2 class="section-title">成长时间轴</h2>
     </div>
+    <div class="milestone-progress fade-in">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="font-weight: 700; font-size: 16px;">成长进度</span>
+        <span style="color: var(--primary); font-weight: 600;" id="milestonePercent">0%</span>
+      </div>
+      <div class="milestone-progress-bar">
+        <div class="milestone-progress-fill" id="milestoneFill" style="width: 0%"></div>
+      </div>
+      <div class="milestone-stats" id="milestoneStats"></div>
+    </div>
     <div class="timeline" id="timelineList"></div>
+  </section>
+
+  <!-- Travel Map Section -->
+  <section class="section" id="map">
+    <div class="section-header fade-in">
+      <div class="section-icon">🗺️</div>
+      <h2 class="section-title">安安的旅行足迹</h2>
+    </div>
+    <div class="map-container fade-in">
+      <div style="margin-bottom: 16px; color: var(--text-light); font-size: 14px; text-align: center;">
+        点击地图上的 📍 标记，查看安安去过的地方
+      </div>
+      <svg class="map-svg" viewBox="0 0 800 400" id="travelMap">
+        <!-- Background -->
+        <rect width="800" height="400" fill="#E3F2FD"/>
+        <!-- China outline simplified -->
+        <path d="M200,180 Q250,120 320,130 Q400,100 480,120 Q550,100 600,140 Q650,160 680,200 Q700,250 650,280 Q600,320 520,310 Q450,340 380,320 Q300,350 250,310 Q200,280 180,230 Q170,200 200,180Z" fill="#C8E6C9" stroke="#81C784" stroke-width="2"/>
+        <!-- Railway lines -->
+        <path d="M320,230 Q400,200 480,230 Q520,180 580,210" fill="none" stroke="#8B7355" stroke-width="3" stroke-dasharray="8,4"/>
+        <path d="M380,250 Q450,280 520,250 Q560,290 620,260" fill="none" stroke="#8B7355" stroke-width="3" stroke-dasharray="8,4"/>
+        <!-- Cities/Pins -->
+        <g class="map-pin" data-city="成都" data-desc="安安的家乡，火车从这里出发 🏠" transform="translate(360, 240)">
+          <circle r="12" fill="#E85D3A" opacity="0.3"/>
+          <circle r="6" fill="#E85D3A"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">成都</text>
+        </g>
+        <g class="map-pin" data-city="犍为" data-desc="2024年10月，安安第一次坐上犍为小火车！🚂" transform="translate(420, 220)">
+          <circle r="12" fill="#F7B731" opacity="0.3"/>
+          <circle r="6" fill="#F7B731"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">犍为</text>
+        </g>
+        <g class="map-pin" data-city="中坝森林" data-desc="2025年5月，安安第一次爬山的地方 🌲" transform="translate(370, 210)">
+          <circle r="12" fill="#2D6A4F" opacity="0.3"/>
+          <circle r="6" fill="#2D6A4F"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">中坝</text>
+        </g>
+        <g class="map-pin" data-city="露营地" data-desc="2022年8月，第一次在大自然中入睡 🏕️" transform="translate(400, 260)">
+          <circle r="12" fill="#40916C" opacity="0.3"/>
+          <circle r="6" fill="#40916C"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">露营</text>
+        </g>
+        <g class="map-pin" data-city="未来" data-desc="安安的火车还会去更多地方... 🌍" transform="translate(600, 200)">
+          <circle r="12" fill="#9C27B0" opacity="0.3"/>
+          <circle r="6" fill="#9C27B0"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">?</text>
+        </g>
+        <!-- Compass -->
+        <g transform="translate(740, 60)">
+          <circle r="30" fill="#fff" stroke="#ddd" stroke-width="2"/>
+          <text y="-18" text-anchor="middle" font-size="12" fill="#999">N</text>
+          <path d="M0,-20 L6,0 L0,4 L-6,0Z" fill="#E85D3A"/>
+          <path d="M0,20 L6,0 L0,-4 L-6,0Z" fill="#ddd"/>
+        </g>
+        <!-- Legend -->
+        <g transform="translate(20, 360)">
+          <rect width="180" height="28" fill="#fff" rx="4" opacity="0.9"/>
+          <circle cx="16" cy="14" r="5" fill="#8B7355"/>
+          <text x="30" y="18" font-size="12" fill="#666">铁路线</text>
+          <circle cx="90" cy="14" r="5" fill="#E85D3A"/>
+          <text x="104" y="18" font-size="12" fill="#666">去过的地方</text>
+        </g>
+      </svg>
+    </div>
   </section>
 
   <!-- Photos Section -->
@@ -717,6 +1086,22 @@ body {
     </div>
   </section>
 
+  <!-- Quiz Section -->
+  <section class="section" id="quiz">
+    <div class="section-header fade-in">
+      <div class="section-icon">❓</div>
+      <h2 class="section-title">安安小问答</h2>
+    </div>
+    <div class="quiz-card fade-in" id="quizCard">
+      <div id="quizContent">
+        <div class="quiz-question" id="quizQuestion">加载中...</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-score" id="quizScore" style="display:none"></div>
+        <button class="quiz-restart" id="quizRestart" style="display:none" onclick="restartQuiz()">再来一次</button>
+      </div>
+    </div>
+  </section>
+
   <!-- Growth Data Section -->
   <section class="section" id="growth">
     <div class="section-header fade-in">
@@ -745,6 +1130,33 @@ body {
       <h2 class="section-title">给未来的信</h2>
     </div>
     <div id="lettersList"></div>
+  </section>
+
+  <!-- Wish Wall Section -->
+  <section class="section" id="wishes">
+    <div class="section-header fade-in">
+      <div class="section-icon">🌟</div>
+      <h2 class="section-title">心愿墙</h2>
+    </div>
+    <div class="wish-wall fade-in" id="wishWall">
+      <div style="text-align: center; position: relative; z-index: 3;">
+        <div style="color: #fff; font-size: 16px; margin-bottom: 12px; text-shadow: 0 2px 4px rgba(0,0,0,.2);">
+          写下对安安的祝福和心愿，贴到墙上吧 ✨
+        </div>
+        <button class="wish-add-btn" onclick="toggleWishForm()">
+          <span>✏️</span> 写心愿
+        </button>
+      </div>
+      <div class="wish-form" id="wishForm">
+        <textarea id="wishText" placeholder="写下你的心愿...
+比如：希望安安健康快乐成长！"></textarea>
+        <div class="form-actions">
+          <button class="btn-cancel" onclick="toggleWishForm()">取消</button>
+          <button class="btn-submit" onclick="addWish()">贴上墙</button>
+        </div>
+      </div>
+      <div id="wishSticks" style="position: relative; min-height: 300px; margin-top: 20px;"></div>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -861,6 +1273,14 @@ const INLINE_DATA = {
 };
 
 function initApp() {
+  // Show loading screen
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.add('hidden');
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+    }, 800);
+  }, 2500);
+  
   // Try fetch first (works on server), fallback to inline data (works locally)
   fetch('data.json')
     .then(r => r.json())
@@ -872,12 +1292,20 @@ function renderAll() {
   if (!appData) return;
   renderHero();
   renderTimeline();
+  renderMilestoneProgress();
   renderPhotos();
   renderVideos();
   renderQuotes();
+  renderQuiz();
   renderGrowth();
   renderLetters();
+  renderWishes();
+  initParticles();
+  initScrollProgress();
+  initParallax();
+  initMapInteractivity();
   setupScrollAnimations();
+  initNavActiveState();
 }
 
 // ==================== Hero ====================
@@ -1130,6 +1558,483 @@ function setupScrollAnimations() {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// ==================== Milestone Progress ====================
+function renderMilestoneProgress() {
+  const milestones = appData.milestones;
+  const completed = milestones.filter(m => m.image || m.video).length;
+  const total = milestones.length;
+  const percent = Math.round((completed / total) * 100);
+  
+  document.getElementById('milestoneFill').style.width = percent + '%';
+  document.getElementById('milestonePercent').textContent = percent + '%';
+  
+  const stats = [
+    { num: total, label: '总里程碑' },
+    { num: completed, label: '已有照片' },
+    { num: total - completed, label: '待补充' }
+  ];
+  
+  document.getElementById('milestoneStats').innerHTML = stats.map(s => `
+    <div>
+      <div class="milestone-stat-number">${s.num}</div>
+      <div class="milestone-stat-label">${s.label}</div>
+    </div>
+  `).join('');
+}
+
+// ==================== Enhanced Lightbox ====================
+function openLightbox(src, caption) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  img.src = src;
+  cap.textContent = caption || '';
+  cap.style.display = caption ? 'block' : 'none';
+  lb.classList.add('active');
+}
+document.getElementById('lightbox').addEventListener('click', function() {
+  this.classList.remove('active');
+});
+
+// ==================== Particle System ====================
+function initParticles() {
+  const canvas = document.getElementById('particlesCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let animationId = null;
+  
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + 10;
+      this.size = Math.random() * 4 + 2;
+      this.speedY = Math.random() * 1 + 0.5;
+      this.speedX = Math.random() * 0.6 - 0.3;
+      this.opacity = Math.random() * 0.5 + 0.2;
+      this.type = Math.random() > 0.7 ? 'star' : (Math.random() > 0.5 ? 'circle' : 'heart');
+      this.rotation = Math.random() * 360;
+      this.rotationSpeed = Math.random() * 2 - 1;
+      this.color = ['#FFD54F', '#E85D3A', '#81C784', '#4FC3F7', '#F7B731', '#E1BEE7'][Math.floor(Math.random() * 6)];
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX;
+      this.rotation += this.rotationSpeed;
+      if (this.y < -20) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation * Math.PI / 180);
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      
+      if (this.type === 'star') {
+        // Draw star
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          const angle = (i * 144 - 90) * Math.PI / 180;
+          const x = Math.cos(angle) * this.size;
+          const y = Math.sin(angle) * this.size;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+          const innerAngle = ((i * 144 + 72) - 90) * Math.PI / 180;
+          ctx.lineTo(Math.cos(innerAngle) * this.size * 0.4, Math.sin(innerAngle) * this.size * 0.4);
+        }
+        ctx.closePath();
+        ctx.fill();
+      } else if (this.type === 'heart') {
+        // Draw heart
+        const s = this.size * 0.8;
+        ctx.beginPath();
+        ctx.moveTo(0, -s * 0.3);
+        ctx.bezierCurveTo(-s, -s, -s, s * 0.3, 0, s * 0.8);
+        ctx.bezierCurveTo(s, s * 0.3, s, -s, 0, -s * 0.3);
+        ctx.fill();
+      } else {
+        // Draw circle
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      
+      ctx.restore();
+    }
+  }
+  
+  // Create particles (limited to 50 for performance)
+  for (let i = 0; i < 50; i++) {
+    const p = new Particle();
+    p.y = Math.random() * canvas.height;
+    particles.push(p);
+  }
+  
+  let frameCount = 0;
+  function animate() {
+    frameCount++;
+    // Skip every other frame on mobile for performance
+    if (window.innerWidth < 768 && frameCount % 2 !== 0) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    animationId = requestAnimationFrame(animate);
+  }
+  animate();
+  
+  // Pause when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animationId);
+    } else {
+      animate();
+    }
+  });
+}
+
+// ==================== Scroll Progress ====================
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = (scrollTop / docHeight) * 100;
+    bar.style.width = percent + '%';
+  });
+}
+
+// ==================== Parallax Effect ====================
+function initParallax() {
+  const hero = document.querySelector('.hero');
+  const heroContent = document.querySelector('.hero-content');
+  const sun = document.querySelector('.hero-sun');
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY < window.innerHeight) {
+      const parallaxFactor = scrollY * 0.3;
+      heroContent.style.transform = `translateY(${parallaxFactor}px)`;
+      if (sun) sun.style.transform = `translateY(${scrollY * 0.1}px) scale(${1 + scrollY * 0.0002})`;
+    }
+  });
+}
+
+// ==================== Nav Active State ====================
+function initNavActiveState() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+}
+
+// ==================== Travel Map ====================
+function initMapInteractivity() {
+  const tooltip = document.getElementById('mapTooltip');
+  const pins = document.querySelectorAll('.map-pin');
+  
+  pins.forEach(pin => {
+    pin.addEventListener('mouseenter', (e) => {
+      const city = pin.dataset.city;
+      const desc = pin.dataset.desc;
+      tooltip.innerHTML = `<strong>${city}</strong><br>${desc}`;
+      tooltip.classList.add('active');
+      
+      const rect = pin.getBoundingClientRect();
+      tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+      tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+    });
+    
+    pin.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('active');
+    });
+    
+    pin.addEventListener('click', () => {
+      const desc = pin.dataset.desc;
+      // Simple animation feedback
+      pin.style.transform = 'scale(1.5)';
+      setTimeout(() => {
+        pin.style.transform = '';
+      }, 300);
+    });
+  });
+}
+
+// ==================== Quiz System ====================
+const QUIZ_DATA = [
+  {
+    question: "安安最喜欢什么交通工具？",
+    options: ["汽车", "飞机", "火车", "自行车"],
+    correct: 2,
+    explanation: "没错！安安是个小火车迷 🚂"
+  },
+  {
+    question: "安安是几岁开始第一次游泳的？",
+    options: ["1岁", "1岁半", "2岁", "3岁"],
+    correct: 1,
+    explanation: "安安1岁半就下水游泳啦，超级勇敢！🏊"
+  },
+  {
+    question: "安安第一次坐的火车是哪里的？",
+    options: ["成都地铁", "犍为小火车", "高铁", "绿皮火车"],
+    correct: 1,
+    explanation: "2024年10月，安安坐上了犍为小火车！🚂"
+  },
+  {
+    question: "安安的生日是哪一天？",
+    options: ["2022年3月5日", "2022年4月5日", "2021年3月5日", "2023年3月5日"],
+    correct: 0,
+    explanation: "安安出生于2022年3月5日 🎂"
+  },
+  {
+    question: "安安三岁生日时抱的是什么？",
+    options: ["小熊", "气球", "火车模型", "蛋糕"],
+    correct: 1,
+    explanation: "三岁生日安安抱着五颜六色的气球 🎈"
+  }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+
+function renderQuiz() {
+  quizIndex = 0;
+  quizScore = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = QUIZ_DATA[quizIndex];
+  document.getElementById('quizQuestion').textContent = `第 ${quizIndex + 1}/${QUIZ_DATA.length} 题：${q.question}`;
+  
+  const optionsHtml = q.options.map((opt, i) => `
+    <div class="quiz-option" onclick="checkAnswer(${i})">${opt}</div>
+  `).join('');
+  
+  document.getElementById('quizOptions').innerHTML = optionsHtml;
+  document.getElementById('quizScore').style.display = 'none';
+  document.getElementById('quizRestart').style.display = 'none';
+}
+
+function checkAnswer(selected) {
+  const q = QUIZ_DATA[quizIndex];
+  const options = document.querySelectorAll('.quiz-option');
+  
+  options[selected].classList.add(selected === q.correct ? 'correct' : 'wrong');
+  if (selected === q.correct) {
+    quizScore++;
+  }
+  
+  // Show correct answer if wrong
+  if (selected !== q.correct) {
+    options[q.correct].classList.add('correct');
+  }
+  
+  // Disable all options
+  options.forEach(opt => opt.style.pointerEvents = 'none');
+  
+  // Show explanation
+  setTimeout(() => {
+    document.getElementById('quizQuestion').innerHTML = 
+      `${q.explanation}<br><br>第 ${quizIndex + 1}/${QUIZ_DATA.length} 题`;
+    
+    if (quizIndex < QUIZ_DATA.length - 1) {
+      setTimeout(() => {
+        quizIndex++;
+        showQuestion();
+      }, 2000);
+    } else {
+      showQuizResult();
+    }
+  }, 1000);
+}
+
+function showQuizResult() {
+  const percent = Math.round((quizScore / QUIZ_DATA.length) * 100);
+  let message = '';
+  if (percent === 100) message = '太棒了！你是安安的超级粉丝！🎉';
+  else if (percent >= 60) message = '不错哦！你很了解安安 😊';
+  else message = '继续加油，多看看安安的故事吧！💪';
+  
+  document.getElementById('quizQuestion').innerHTML = 
+    `<div style="font-size: 24px; margin-bottom: 12px;">🎊 答题结束！</div>
+     得分：${quizScore}/${QUIZ_DATA.length} (${percent}%)<br>${message}`;
+  document.getElementById('quizOptions').innerHTML = '';
+  document.getElementById('quizRestart').style.display = 'inline-block';
+}
+
+function restartQuiz() {
+  quizIndex = 0;
+  quizScore = 0;
+  showQuestion();
+}
+
+// ==================== Wish Wall ====================
+let wishes = [
+  { text: "希望安安永远健康快乐", author: "爸爸妈妈", date: "2024-01-01", color: 1 },
+  { text: "安安要勇敢，未来的路妈妈陪你一起走", author: "妈妈", date: "2025-03-05", color: 2 },
+  { text: "开火车带全家人去旅行！", author: "爸爸", date: "2025-05-20", color: 3 },
+  { text: "祝安安四岁生日快乐，天天开心", author: "爷爷奶奶", date: "2026-03-21", color: 4 },
+  { text: "小火车永远不要停下来", author: "外公外婆", date: "2026-03-21", color: 5 }
+];
+
+function renderWishes() {
+  const container = document.getElementById('wishSticks');
+  const positions = [
+    { left: '5%', top: '10px', rotate: '-5deg' },
+    { left: '28%', top: '40px', rotate: '3deg' },
+    { left: '52%', top: '15px', rotate: '-2deg' },
+    { left: '75%', top: '50px', rotate: '4deg' },
+    { left: '15%', top: '180px', rotate: '2deg' },
+    { left: '42%', top: '200px', rotate: '-4deg' },
+    { left: '68%', top: '170px', rotate: '3deg' },
+    { left: '5%', top: '320px', rotate: '-3deg' },
+    { left: '35%', top: '340px', rotate: '5deg' },
+    { left: '60%', top: '310px', rotate: '-1deg' },
+    { left: '82%', top: '350px', rotate: '2deg' }
+  ];
+  
+  container.innerHTML = wishes.map((w, i) => {
+    const pos = positions[i % positions.length];
+    return `
+      <div class="wish-sticky wish-colors-${w.color}" 
+           style="left: ${pos.left}; top: ${pos.top}; --rotate: ${pos.rotate}">
+        <div class="wish-sticky-text">${w.text}</div>
+        <div class="wish-sticky-author">— ${w.author}</div>
+        <div class="wish-sticky-date">${w.date}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleWishForm() {
+  const form = document.getElementById('wishForm');
+  form.classList.toggle('active');
+  if (form.classList.contains('active')) {
+    document.getElementById('wishText').focus();
+  }
+}
+
+function addWish() {
+  const text = document.getElementById('wishText').value.trim();
+  if (!text) return;
+  
+  const today = new Date().toISOString().split('T')[0];
+  const colors = [1, 2, 3, 4, 5];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  
+  wishes.push({
+    text: text,
+    author: "访客",
+    date: today,
+    color: color
+  });
+  
+  document.getElementById('wishText').value = '';
+  toggleWishForm();
+  renderWishes();
+  
+  // Trigger confetti
+  createConfetti();
+}
+
+// ==================== Confetti ====================
+function createConfetti() {
+  const colors = ['#E85D3A', '#F7B731', '#4FC3F7', '#81C784', '#FFD54F', '#E1BEE7'];
+  for (let i = 0; i < 30; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = Math.random() * 10 + 5 + 'px';
+    piece.style.height = Math.random() * 10 + 5 + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    piece.style.animationDelay = Math.random() * 1 + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+// ==================== Heart Like ====================
+function addHeartButton() {
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    const heart = document.createElement('button');
+    heart.className = 'heart-btn';
+    heart.innerHTML = '🤍';
+    heart.style.position = 'absolute';
+    heart.style.bottom = '8px';
+    heart.style.right = '8px';
+    heart.style.zIndex = '5';
+    heart.style.fontSize = '18px';
+    heart.addEventListener('click', () => {
+      heart.classList.toggle('liked');
+      heart.innerHTML = heart.classList.contains('liked') ? '❤️' : '🤍';
+    });
+    item.querySelector('.timeline-content').appendChild(heart);
+  });
+}
+
+// ==================== Enhanced Timeline with Heart ====================
+function renderTimeline() {
+  const list = document.getElementById('timelineList');
+  list.innerHTML = appData.milestones.map((m, i) => {
+    const hasMedia = m.image || m.video;
+    let mediaHtml = '';
+    if (m.video) {
+      mediaHtml = `
+        <div class="timeline-video visible">
+          <video src="${m.video}" controls preload="metadata" playsinline onclick="event.stopPropagation()"></video>
+        </div>`;
+    } else if (m.image) {
+      mediaHtml = `
+        <div class="timeline-img visible" onclick="openLightbox('${m.image}', '${m.title}')">
+          <span class="img-placeholder">📷</span>
+          <img src="${m.image}" alt="${m.title}" onload="this.parentElement.querySelector('.img-placeholder').style.display='none'" onerror="this.style.display='none'" loading="lazy">
+        </div>`;
+    }
+    return `
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"><span class="timeline-icon">${m.icon || '🚂'}</span></div>
+      <div class="timeline-content" style="position: relative;">
+        <div class="timeline-date">${m.date}</div>
+        <div class="timeline-title">${m.title}</div>
+        <div class="timeline-desc">${m.description}</div>
+        ${mediaHtml}
+        <button class="heart-btn" onclick="this.classList.toggle('liked'); this.innerHTML = this.classList.contains('liked') ? '❤️' : '🤍'; event.stopPropagation();" style="position: absolute; bottom: 8px; right: 8px; font-size: 18px;">🤍</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 </script>
 </body>
