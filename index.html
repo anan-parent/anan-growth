@@ -700,27 +700,195 @@ body {
 .wish-form .btn-cancel { background: var(--border); color: var(--text); }
 
 /* ========== Travel Map ========== */
-.map-container {
-  background: var(--bg-card); border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.06); border: 1px solid var(--border);
-  padding: 28px; position: relative; overflow: hidden;
+.map-scene {
+  background: linear-gradient(180deg, #87CEEB 0%, #B3E5FC 40%, #C8E6C9 70%, #81C784 100%);
+  border-radius: 20px;
+  padding: 40px 20px 60px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
 }
-.map-svg {
-  width: 100%; height: 300px; border-radius: 12px;
-  background: linear-gradient(180deg, #E3F2FD, #BBDEFB);
+.map-scene::before {
+  content: '☁️ ☁️ ☁️';
+  position: absolute;
+  top: 20px; left: 10%;
+  font-size: 24px;
+  opacity: 0.6;
+  animation: cloud-float 8s ease-in-out infinite;
 }
-.map-pin {
-  cursor: pointer; transition: transform .3s;
-  transform-origin: center bottom;
+.map-scene::after {
+  content: '☁️ ☁️';
+  position: absolute;
+  top: 40px; right: 15%;
+  font-size: 20px;
+  opacity: 0.5;
+  animation: cloud-float 10s ease-in-out infinite reverse;
 }
-.map-pin:hover { transform: scale(1.3); }
-.map-tooltip {
-  position: absolute; background: #fff; padding: 8px 14px;
-  border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,.15);
-  font-size: 13px; pointer-events: none; opacity: 0;
-  transition: opacity .3s; z-index: 10;
+@keyframes cloud-float {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(30px); }
 }
-.map-tooltip.active { opacity: 1; }
+.map-rail-path {
+  position: absolute;
+  bottom: 80px;
+  left: 5%;
+  right: 5%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #8B7355 0px, #8B7355 12px,
+    transparent 12px, transparent 20px
+  );
+  border-radius: 2px;
+}
+.map-rail-path::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0; right: 0;
+  height: 2px;
+  background: #A1887F;
+  border-radius: 1px;
+}
+.map-rail-path::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0; right: 0;
+  height: 2px;
+  background: #A1887F;
+  border-radius: 1px;
+}
+.map-station {
+  position: absolute;
+  bottom: 60px;
+  transform: translateX(-50%);
+  text-align: center;
+  cursor: pointer;
+  transition: transform .3s;
+  z-index: 5;
+}
+.map-station:hover {
+  transform: translateX(-50%) translateY(-8px);
+}
+.map-station-dot {
+  width: 20px;
+  height: 20px;
+  background: #E85D3A;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  margin: 0 auto 8px;
+  position: relative;
+}
+.map-station-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  background: #fff;
+  border-radius: 50%;
+}
+.map-station-label {
+  background: rgba(255,255,255,.95);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  white-space: nowrap;
+}
+.map-station-card {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  transform-origin: bottom center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  width: 200px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+  opacity: 0;
+  transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 10;
+  pointer-events: none;
+}
+.map-station-card.active {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.map-station-card::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #fff;
+}
+.map-station-card-img {
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+.map-station-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.map-station-card-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.map-train {
+  position: absolute;
+  bottom: 72px;
+  font-size: 32px;
+  z-index: 6;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+  transition: left 8s linear;
+}
+.map-hills {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath d='M0,30 Q180,5 360,25 Q540,45 720,20 Q900,0 1080,25 Q1260,50 1440,30 L1440,60 L0,60Z' fill='%2366BB6A'/%3E%3Cpath d='M0,40 Q240,20 480,35 Q720,50 960,30 Q1200,15 1440,40 L1440,60 L0,60Z' fill='%2381C784'/%3E%3C/svg%3E");
+  background-size: cover;
+  border-radius: 0 0 20px 20px;
+}
+.map-trees {
+  position: absolute;
+  bottom: 30px;
+  font-size: 20px;
+  opacity: 0.7;
+}
+.map-sun {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #FFD54F;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #FFD54F, 0 0 60px rgba(255,213,79,.3);
+  animation: sun-pulse 3s ease-in-out infinite;
+}
 
 /* ========== Quiz Section ========== */
 .quiz-card {
@@ -999,60 +1167,56 @@ body {
       <div class="section-icon">🗺️</div>
       <h2 class="section-title">安安的旅行足迹</h2>
     </div>
-    <div class="map-container fade-in">
-      <div style="margin-bottom: 16px; color: var(--text-light); font-size: 14px; text-align: center;">
-        点击地图上的 📍 标记，查看安安去过的地方
+    <div class="map-scene fade-in" id="travelMap">
+      <!-- Sun -->
+      <div class="map-sun"></div>
+      <!-- Clouds -->
+      <div style="position: absolute; top: 20px; left: 15%; font-size: 28px; opacity: 0.5; animation: cloud-float 12s ease-in-out infinite;">☁️</div>
+      <div style="position: absolute; top: 45px; left: 55%; font-size: 22px; opacity: 0.4; animation: cloud-float 10s ease-in-out infinite reverse;">☁️</div>
+      <div style="position: absolute; top: 25px; right: 25%; font-size: 20px; opacity: 0.35; animation: cloud-float 15s ease-in-out infinite;">☁️</div>
+      <!-- Title inside map -->
+      <div style="text-align: center; margin-bottom: 20px; position: relative; z-index: 3;">
+        <div style="font-size: 14px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.3); opacity: 0.9;">
+          🚂 小火车出发啦！点击车站查看故事
+        </div>
       </div>
-      <svg class="map-svg" viewBox="0 0 800 400" id="travelMap">
-        <!-- Background -->
-        <rect width="800" height="400" fill="#E3F2FD"/>
-        <!-- China outline simplified -->
-        <path d="M200,180 Q250,120 320,130 Q400,100 480,120 Q550,100 600,140 Q650,160 680,200 Q700,250 650,280 Q600,320 520,310 Q450,340 380,320 Q300,350 250,310 Q200,280 180,230 Q170,200 200,180Z" fill="#C8E6C9" stroke="#81C784" stroke-width="2"/>
-        <!-- Railway lines -->
-        <path d="M320,230 Q400,200 480,230 Q520,180 580,210" fill="none" stroke="#8B7355" stroke-width="3" stroke-dasharray="8,4"/>
-        <path d="M380,250 Q450,280 520,250 Q560,290 620,260" fill="none" stroke="#8B7355" stroke-width="3" stroke-dasharray="8,4"/>
-        <!-- Cities/Pins -->
-        <g class="map-pin" data-city="成都" data-desc="安安的家乡，火车从这里出发 🏠" transform="translate(360, 240)">
-          <circle r="12" fill="#E85D3A" opacity="0.3"/>
-          <circle r="6" fill="#E85D3A"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">成都</text>
-        </g>
-        <g class="map-pin" data-city="犍为" data-desc="2024年10月，安安第一次坐上犍为小火车！🚂" transform="translate(420, 220)">
-          <circle r="12" fill="#F7B731" opacity="0.3"/>
-          <circle r="6" fill="#F7B731"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">犍为</text>
-        </g>
-        <g class="map-pin" data-city="中坝森林" data-desc="2025年5月，安安第一次爬山的地方 🌲" transform="translate(370, 210)">
-          <circle r="12" fill="#2D6A4F" opacity="0.3"/>
-          <circle r="6" fill="#2D6A4F"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">中坝</text>
-        </g>
-        <g class="map-pin" data-city="露营地" data-desc="2022年8月，第一次在大自然中入睡 🏕️" transform="translate(400, 260)">
-          <circle r="12" fill="#40916C" opacity="0.3"/>
-          <circle r="6" fill="#40916C"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">露营</text>
-        </g>
-        <g class="map-pin" data-city="未来" data-desc="安安的火车还会去更多地方... 🌍" transform="translate(600, 200)">
-          <circle r="12" fill="#9C27B0" opacity="0.3"/>
-          <circle r="6" fill="#9C27B0"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#333" font-weight="600">?</text>
-        </g>
-        <!-- Compass -->
-        <g transform="translate(740, 60)">
-          <circle r="30" fill="#fff" stroke="#ddd" stroke-width="2"/>
-          <text y="-18" text-anchor="middle" font-size="12" fill="#999">N</text>
-          <path d="M0,-20 L6,0 L0,4 L-6,0Z" fill="#E85D3A"/>
-          <path d="M0,20 L6,0 L0,-4 L-6,0Z" fill="#ddd"/>
-        </g>
-        <!-- Legend -->
-        <g transform="translate(20, 360)">
-          <rect width="180" height="28" fill="#fff" rx="4" opacity="0.9"/>
-          <circle cx="16" cy="14" r="5" fill="#8B7355"/>
-          <text x="30" y="18" font-size="12" fill="#666">铁路线</text>
-          <circle cx="90" cy="14" r="5" fill="#E85D3A"/>
-          <text x="104" y="18" font-size="12" fill="#666">去过的地方</text>
-        </g>
-      </svg>
+      <!-- Station Cards Container -->
+      <div id="stationCardContainer" style="position: relative; z-index: 10;"></div>
+      <!-- Train -->
+      <div class="map-train" id="mapTrain">🚂</div>
+      <!-- Rail path -->
+      <div class="map-rail-path"></div>
+      <!-- Stations -->
+      <div class="map-station" data-city="成都" data-desc="安安的家乡，火车从这里出发" data-icon="🏠" data-color="#E85D3A" style="left: 8%;">
+        <div class="map-station-dot"></div>
+        <div class="map-station-label">成都</div>
+      </div>
+      <div class="map-station" data-city="露营地" data-desc="2022年8月，第一次在大自然中入睡" data-icon="⛺" data-color="#40916C" style="left: 28%;">
+        <div class="map-station-dot"></div>
+        <div class="map-station-label">露营</div>
+      </div>
+      <div class="map-station" data-city="犍为" data-desc="2024年10月，第一次坐上犍为小火车！" data-icon="🚂" data-color="#F7B731" style="left: 52%;">
+        <div class="map-station-dot"></div>
+        <div class="map-station-label">犍为</div>
+      </div>
+      <div class="map-station" data-city="中坝森林" data-desc="2025年5月，第一次爬山的地方" data-icon="🌲" data-color="#2D6A4F" style="left: 72%;">
+        <div class="map-station-dot"></div>
+        <div class="map-station-label">中坝</div>
+      </div>
+      <div class="map-station" data-city="未来" data-desc="安安的火车还会去更多地方..." data-icon="✨" data-color="#9C27B0" style="left: 92%;">
+        <div class="map-station-dot"></div>
+        <div class="map-station-label">?</div>
+      </div>
+      <!-- Trees decoration -->
+      <div class="map-trees" style="left: 5%;">🌳</div>
+      <div class="map-trees" style="left: 18%;">🌲</div>
+      <div class="map-trees" style="left: 35%;">🌳</div>
+      <div class="map-trees" style="left: 45%;">🌲</div>
+      <div class="map-trees" style="left: 62%;">🌳</div>
+      <div class="map-trees" style="left: 80%;">🌲</div>
+      <div class="map-trees" style="left: 90%;">🌳</div>
+      <!-- Hills -->
+      <div class="map-hills"></div>
     </div>
   </section>
 
@@ -1770,34 +1934,90 @@ function initNavActiveState() {
 
 // ==================== Travel Map ====================
 function initMapInteractivity() {
-  const tooltip = document.getElementById('mapTooltip');
-  const pins = document.querySelectorAll('.map-pin');
+  const container = document.getElementById('travelMap');
+  const stations = container.querySelectorAll('.map-station');
+  const train = document.getElementById('mapTrain');
+  const cardContainer = document.getElementById('stationCardContainer');
+  let currentCard = null;
   
-  pins.forEach(pin => {
-    pin.addEventListener('mouseenter', (e) => {
-      const city = pin.dataset.city;
-      const desc = pin.dataset.desc;
-      tooltip.innerHTML = `<strong>${city}</strong><br>${desc}`;
-      tooltip.classList.add('active');
+  // Station click - show card
+  stations.forEach(station => {
+    station.addEventListener('click', () => {
+      // Remove existing card
+      if (currentCard) currentCard.remove();
       
-      const rect = pin.getBoundingClientRect();
-      tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
-      tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
-    });
-    
-    pin.addEventListener('mouseleave', () => {
-      tooltip.classList.remove('active');
-    });
-    
-    pin.addEventListener('click', () => {
-      const desc = pin.dataset.desc;
-      // Simple animation feedback
-      pin.style.transform = 'scale(1.5)';
+      const city = station.dataset.city;
+      const desc = station.dataset.desc;
+      const icon = station.dataset.icon;
+      const color = station.dataset.color;
+      const left = station.style.left;
+      
+      // Create card
+      const card = document.createElement('div');
+      card.className = 'map-station-card active';
+      card.style.left = left;
+      card.innerHTML = `
+        <div class="map-station-card-img" style="background: linear-gradient(135deg, ${color}22, ${color}44);">
+          <span style="font-size: 48px;">${icon}</span>
+        </div>
+        <div class="map-station-card-title" style="color: ${color};">${city}</div>
+        <div class="map-station-card-desc">${desc}</div>
+      `;
+      
+      cardContainer.appendChild(card);
+      currentCard = card;
+      
+      // Move train to this station
+      moveTrainTo(left);
+      
+      // Auto remove after 5s
       setTimeout(() => {
-        pin.style.transform = '';
-      }, 300);
+        if (card.parentNode) {
+          card.classList.remove('active');
+          setTimeout(() => card.remove(), 300);
+        }
+      }, 5000);
     });
   });
+  
+  // Close card when clicking elsewhere
+  container.addEventListener('click', (e) => {
+    if (!e.target.closest('.map-station') && !e.target.closest('.map-station-card')) {
+      if (currentCard) {
+        currentCard.classList.remove('active');
+        setTimeout(() => { if (currentCard) currentCard.remove(); }, 300);
+      }
+    }
+  });
+  
+  // Train animation
+  let trainPos = 0;
+  let trainDirection = 1;
+  const stationPositions = Array.from(stations).map(s => parseInt(s.style.left));
+  
+  function moveTrainTo(position) {
+    train.style.transition = 'left 2s cubic-bezier(0.4, 0, 0.2, 1)';
+    train.style.left = position;
+  }
+  
+  function animateTrain() {
+    if (!document.getElementById('travelMap')) return;
+    
+    // Auto-move train between stations
+    trainPos += trainDirection;
+    if (trainPos >= stationPositions.length - 1 || trainPos < 0) {
+      trainDirection *= -1;
+    }
+    
+    const targetPos = stationPositions[trainPos >= 0 ? trainPos : 0] || '8%';
+    moveTrainTo(targetPos + '%');
+    
+    setTimeout(animateTrain, 4000);
+  }
+  
+  // Start train at first station
+  train.style.left = '8%';
+  setTimeout(animateTrain, 2000);
 }
 
 // ==================== Quiz System ====================
