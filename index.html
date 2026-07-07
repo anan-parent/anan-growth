@@ -1183,10 +1183,12 @@ function tryEnter() {
   if (pwdInput.value === CORRECT_PWD) {
     sessionStorage.setItem('anan_auth', '1');
     gate.classList.add('hidden');
+    // Skip loading animation - go straight to content
+    document.getElementById('loadingScreen').style.display = 'none';
     setTimeout(() => { gate.style.display = 'none'; }, 600);
     document.getElementById('app').classList.add('visible');
     document.getElementById('nav').classList.add('visible');
-    initApp();
+    initApp(true);
   } else {
     pwdError.textContent = '密码不对哦，再试试？';
     pwdInput.value = '';
@@ -1197,11 +1199,13 @@ pwdBtn.addEventListener('click', tryEnter);
 pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryEnter(); });
 
 // Auto-login if session
+// 已经有session（已验证过），直接跳过加载动画和密码门
 if (sessionStorage.getItem('anan_auth') === '1') {
   gate.style.display = 'none';
+  document.getElementById('loadingScreen').style.display = 'none';
   document.getElementById('app').classList.add('visible');
   document.getElementById('nav').classList.add('visible');
-  initApp();
+  initApp(true);
 }
 
 // ==================== App Init ====================
@@ -1272,14 +1276,19 @@ const INLINE_DATA = {
   ]
 };
 
-function initApp() {
-  // Show loading screen
-  setTimeout(() => {
-    document.getElementById('loadingScreen').classList.add('hidden');
+function initApp(skipLoading) {
+  if (!skipLoading) {
+    // Show loading screen for first visit
     setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-    }, 800);
-  }, 2500);
+      document.getElementById('loadingScreen').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+      }, 800);
+    }, 2500);
+  } else {
+    // Skip loading for returning users
+    document.getElementById('loadingScreen').style.display = 'none';
+  }
   
   // Try fetch first (works on server), fallback to inline data (works locally)
   fetch('data.json')
