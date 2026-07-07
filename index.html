@@ -8,22 +8,22 @@
 /* ========== Reset & Base ========== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --primary: #E85D3A;
-  --primary-light: #F4845F;
-  --primary-dark: #C1402B;
-  --secondary: #2D6A4F;
-  --secondary-light: #40916C;
-  --accent: #F7B731;
-  --accent-light: #FFD166;
-  --bg: #FFF8F0;
+  --primary: #1976D2;
+  --primary-light: #42A5F5;
+  --primary-dark: #1565C0;
+  --secondary: #00838F;
+  --secondary-light: #00ACC1;
+  --accent: #FF6F00;
+  --accent-light: #FF8F00;
+  --bg: #F0F8FF;
   --bg-card: #FFFFFF;
-  --text: #2D3436;
-  --text-light: #636E72;
-  --border: #E0D5C7;
-  --rail: #8B7355;
-  --sky: #87CEEB;
-  --grass: #7CB342;
-  --sleepers: #6D4C41;
+  --text: #1A237E;
+  --text-light: #546E7A;
+  --border: #BBDEFB;
+  --rail: #78909C;
+  --sky: #64B5F6;
+  --grass: #4DB6AC;
+  --sleepers: #546E7A;
 }
 html { scroll-behavior: smooth; }
 body {
@@ -37,7 +37,7 @@ body {
 /* ========== Password Gate ========== */
 #gate {
   position: fixed; inset: 0; z-index: 9999;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
   display: flex; align-items: center; justify-content: center;
   flex-direction: column;
   transition: opacity 0.6s, transform 0.6s;
@@ -98,7 +98,7 @@ body {
 
 /* ========== Hero Section ========== */
 .hero {
-  background: linear-gradient(180deg, #4FC3F7 0%, #81D4FA 25%, #B3E5FC 40%, #C8E6C9 65%, #A5D6A7 80%, #81C784 100%);
+  background: linear-gradient(180deg, #1E88E5 0%, #42A5F5 20%, #64B5F6 35%, #81D4FA 50%, #B3E5FC 65%, #E1F5FE 80%, #E0F7FA 100%);
   min-height: 80vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   position: relative; overflow: hidden; padding: 40px 20px;
@@ -106,7 +106,7 @@ body {
 /* Sun */
 .hero-sun {
   position: absolute; top: 6%; right: 12%; width: 80px; height: 80px;
-  background: radial-gradient(circle, #FFF176 30%, #FFD54F 60%, transparent 70%);
+  background: radial-gradient(circle, #BBDEFB 30%, #90CAF9 60%, transparent 70%);
   border-radius: 50%; z-index: 1;
   box-shadow: 0 0 60px 20px rgba(255,235,59,.35), 0 0 120px 40px rgba(255,193,7,.15);
   animation: sun-pulse 4s ease-in-out infinite;
@@ -132,7 +132,7 @@ body {
 }
 .hero-rainbow::after {
   content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 0;
-  background: linear-gradient(180deg, #B3E5FC, #C8E6C9); border-radius: 280px 280px 0 0;
+  background: linear-gradient(180deg, #B3E5FC, #E1F5FE); border-radius: 280px 280px 0 0;
 }
 /* Floating decorations */
 .hero-deco {
@@ -637,7 +637,7 @@ body {
 /* ========== Wish Wall ========== */
 .wish-wall {
   position: relative; min-height: 400px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
   border-radius: 20px; padding: 40px 20px;
   overflow: hidden;
 }
@@ -666,7 +666,7 @@ body {
 .wish-sticky-date { font-size: 11px; color: #bbb; }
 .wish-colors-1 { background: #FFF9C4; }
 .wish-colors-2 { background: #B3E5FC; }
-.wish-colors-3 { background: #C8E6C9; }
+.wish-colors-3 { background: #B3E5FC; }
 .wish-colors-4 { background: #FFCCBC; }
 .wish-colors-5 { background: #E1BEE7; }
 .wish-add-btn {
@@ -701,7 +701,7 @@ body {
 
 /* ========== Travel Map ========== */
 .map-scene {
-  background: linear-gradient(180deg, #87CEEB 0%, #B3E5FC 40%, #C8E6C9 70%, #81C784 100%);
+  background: linear-gradient(180deg, #64B5F6 0%, #90CAF9 30%, #BBDEFB 60%, #E1F5FE 100%);
   border-radius: 20px;
   padding: 40px 20px 60px;
   position: relative;
@@ -774,7 +774,7 @@ body {
 .map-station-dot {
   width: 20px;
   height: 20px;
-  background: #E85D3A;
+  background: #1976D2;
   border-radius: 50%;
   border: 3px solid #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,.2);
@@ -884,9 +884,9 @@ body {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: #FFD54F;
+  background: #FFB74D;
   border-radius: 50%;
-  box-shadow: 0 0 30px #FFD54F, 0 0 60px rgba(255,213,79,.3);
+  box-shadow: 0 0 30px #FFB74D, 0 0 60px rgba(255,183,77,.3);
   animation: sun-pulse 3s ease-in-out infinite;
 }
 
@@ -1098,11 +1098,11 @@ body {
       <div class="hero-train">
         <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Engine -->
-          <rect x="20" y="25" width="80" height="40" rx="6" fill="#E85D3A"/>
-          <rect x="20" y="15" width="30" height="20" rx="4" fill="#C1402B"/>
-          <circle cx="20" cy="25" r="5" fill="#C1402B"/>
-          <rect x="40" y="32" width="22" height="18" rx="2" fill="#87CEEB" stroke="#C1402B" stroke-width="2"/>
-          <rect x="90" y="10" width="8" height="18" rx="2" fill="#6D4C41"/>
+          <rect x="20" y="25" width="80" height="40" rx="6" fill="#1976D2"/>
+          <rect x="20" y="15" width="30" height="20" rx="4" fill="#1565C0"/>
+          <circle cx="20" cy="25" r="5" fill="#1565C0"/>
+          <rect x="40" y="32" width="22" height="18" rx="2" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+          <rect x="90" y="10" width="8" height="18" rx="2" fill="#546E7A"/>
           <!-- Smoke puffs -->
           <circle cx="94" cy="6" r="6" fill="rgba(200,200,200,.6)"/>
           <circle cx="84" cy="2" r="8" fill="rgba(200,200,200,.4)"/>
@@ -1112,15 +1112,15 @@ body {
           <circle cx="75" cy="68" r="8" fill="#333" stroke="#666" stroke-width="2"/>
           <circle cx="75" cy="68" r="3" fill="#999"/>
           <!-- Car 1 -->
-          <rect x="115" y="30" width="60" height="32" rx="4" fill="#F7B731"/>
-          <rect x="122" y="36" width="16" height="16" rx="2" fill="#87CEEB" stroke="#D4A017" stroke-width="1.5"/>
-          <rect x="148" y="36" width="16" height="16" rx="2" fill="#87CEEB" stroke="#D4A017" stroke-width="1.5"/>
+          <rect x="115" y="30" width="60" height="32" rx="4" fill="#00ACC1"/>
+          <rect x="122" y="36" width="16" height="16" rx="2" fill="#BBDEFB" stroke="#00838F" stroke-width="1.5"/>
+          <rect x="148" y="36" width="16" height="16" rx="2" fill="#BBDEFB" stroke="#00838F" stroke-width="1.5"/>
           <circle cx="130" cy="66" r="7" fill="#333" stroke="#666" stroke-width="2"/>
           <circle cx="160" cy="66" r="7" fill="#333" stroke="#666" stroke-width="2"/>
           <!-- Car 2 -->
-          <rect x="190" y="32" width="55" height="30" rx="4" fill="#40916C"/>
-          <rect x="197" y="37" width="14" height="14" rx="2" fill="#87CEEB" stroke="#2D6A4F" stroke-width="1.5"/>
-          <rect x="219" y="37" width="14" height="14" rx="2" fill="#87CEEB" stroke="#2D6A4F" stroke-width="1.5"/>
+          <rect x="190" y="32" width="55" height="30" rx="4" fill="#42A5F5"/>
+          <rect x="197" y="37" width="14" height="14" rx="2" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+          <rect x="219" y="37" width="14" height="14" rx="2" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
           <circle cx="205" cy="66" r="7" fill="#333" stroke="#666" stroke-width="2"/>
           <circle cx="232" cy="66" r="7" fill="#333" stroke="#666" stroke-width="2"/>
           <!-- Rails -->
@@ -1135,9 +1135,9 @@ body {
     </div>
     <div class="hero-ground">
       <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path d="M0,20 Q360,60 720,30 Q1080,0 1440,40 L1440,100 L0,100 Z" fill="#66BB6A"/>
-        <path d="M0,40 Q360,70 720,50 Q1080,30 1440,60 L1440,100 L0,100 Z" fill="#81C784"/>
-        <path d="M0,60 Q360,80 720,65 Q1080,50 1440,75 L1440,100 L0,100 Z" fill="#A5D6A7"/>
+        <path d="M0,20 Q360,60 720,30 Q1080,0 1440,40 L1440,100 L0,100 Z" fill="#4DB6AC"/>
+        <path d="M0,40 Q360,70 720,50 Q1080,30 1440,60 L1440,100 L0,100 Z" fill="#80CBC4"/>
+        <path d="M0,60 Q360,80 720,65 Q1080,50 1440,75 L1440,100 L0,100 Z" fill="#B2DFDB"/>
       </svg>
     </div>
   </section>
@@ -1187,23 +1187,23 @@ body {
       <!-- Rail path -->
       <div class="map-rail-path"></div>
       <!-- Stations -->
-      <div class="map-station" data-city="成都" data-desc="安安的家乡，火车从这里出发" data-icon="🏠" data-color="#E85D3A" style="left: 8%;">
+      <div class="map-station" data-city="成都" data-desc="安安的家乡，火车从这里出发" data-icon="🏠" data-color="#1976D2" style="left: 8%;">
         <div class="map-station-dot"></div>
         <div class="map-station-label">成都</div>
       </div>
-      <div class="map-station" data-city="露营地" data-desc="2022年8月，第一次在大自然中入睡" data-icon="⛺" data-color="#40916C" style="left: 28%;">
+      <div class="map-station" data-city="露营地" data-desc="2022年8月，第一次在大自然中入睡" data-icon="⛺" data-color="#00ACC1" style="left: 28%;">
         <div class="map-station-dot"></div>
         <div class="map-station-label">露营</div>
       </div>
-      <div class="map-station" data-city="犍为" data-desc="2024年10月，第一次坐上犍为小火车！" data-icon="🚂" data-color="#F7B731" style="left: 52%;">
+      <div class="map-station" data-city="犍为" data-desc="2024年10月，第一次坐上犍为小火车！" data-icon="🚂" data-color="#42A5F5" style="left: 52%;">
         <div class="map-station-dot"></div>
         <div class="map-station-label">犍为</div>
       </div>
-      <div class="map-station" data-city="中坝森林" data-desc="2025年5月，第一次爬山的地方" data-icon="🌲" data-color="#2D6A4F" style="left: 72%;">
+      <div class="map-station" data-city="中坝森林" data-desc="2025年5月，第一次爬山的地方" data-icon="🌲" data-color="#00838F" style="left: 72%;">
         <div class="map-station-dot"></div>
         <div class="map-station-label">中坝</div>
       </div>
-      <div class="map-station" data-city="未来" data-desc="安安的火车还会去更多地方..." data-icon="✨" data-color="#9C27B0" style="left: 92%;">
+      <div class="map-station" data-city="未来" data-desc="安安的火车还会去更多地方..." data-icon="✨" data-color="#7C4DFF" style="left: 92%;">
         <div class="map-station-dot"></div>
         <div class="map-station-label">?</div>
       </div>
@@ -1668,7 +1668,7 @@ function drawChart(type) {
   });
 
   // Line
-  const color = type === 'height' ? '#E85D3A' : '#2D6A4F';
+  const color = type === 'height' ? '#1976D2' : '#00ACC1';
   ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineJoin = 'round';
   ctx.beginPath();
   values.forEach((v, i) => {
@@ -1799,7 +1799,7 @@ function initParticles() {
       this.type = Math.random() > 0.7 ? 'star' : (Math.random() > 0.5 ? 'circle' : 'heart');
       this.rotation = Math.random() * 360;
       this.rotationSpeed = Math.random() * 2 - 1;
-      this.color = ['#FFD54F', '#E85D3A', '#81C784', '#4FC3F7', '#F7B731', '#E1BEE7'][Math.floor(Math.random() * 6)];
+      this.color = ['#90CAF9', '#42A5F5', '#4DB6AC', '#80CBC4', '#FFB74D', '#B3E5FC'][Math.floor(Math.random() * 6)];
     }
     update() {
       this.y -= this.speedY;
@@ -2200,7 +2200,7 @@ function addWish() {
 
 // ==================== Confetti ====================
 function createConfetti() {
-  const colors = ['#E85D3A', '#F7B731', '#4FC3F7', '#81C784', '#FFD54F', '#E1BEE7'];
+  const colors = ['#1976D2', '#42A5F5', '#4DB6AC', '#80CBC4', '#FFB74D', '#BBDEFB'];
   for (let i = 0; i < 30; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
