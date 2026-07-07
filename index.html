@@ -353,40 +353,59 @@ body {
 
 /* ========== Photo Wall (Waterfall Masonry) ========== */
 .photo-wall {
-  column-count: 4; column-gap: 12px;
+  column-count: 5; column-gap: 8px;
   padding: 0 4px;
 }
 .photo-wall-item {
-  break-inside: avoid; margin-bottom: 12px;
-  border-radius: 12px; overflow: hidden;
+  break-inside: avoid; margin-bottom: 8px;
+  border-radius: 10px; overflow: hidden;
   cursor: pointer; position: relative;
-  box-shadow: 0 2px 12px rgba(0,0,0,.08);
-  transition: transform .3s, box-shadow .3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+  animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes photoPopIn {
+  0% { opacity: 0; transform: scale(.3) translateY(30px) rotate(-8deg); }
+  70% { transform: scale(1.05) translateY(-5px) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
 }
 .photo-wall-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 28px rgba(0,0,0,.15);
+  transform: translateY(-6px) scale(1.06) rotate(1deg);
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
   z-index: 2;
 }
 .photo-wall-item img {
   width: 100%; display: block;
-  border-radius: 12px;
+  border-radius: 10px;
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.photo-wall-item:hover img {
+  transform: scale(1.08);
 }
 .photo-wall-item .photo-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 30px 12px 10px;
-  background: linear-gradient(transparent, rgba(0,0,0,.65));
+  padding: 24px 8px 6px;
+  background: linear-gradient(transparent, rgba(0,0,0,.55));
   opacity: 0; transition: opacity .3s;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 10px 10px;
 }
 .photo-wall-item:hover .photo-overlay { opacity: 1; }
 .photo-overlay .photo-title {
-  color: #fff; font-size: 13px; font-weight: 600;
+  color: #fff; font-size: 12px; font-weight: 600;
   text-shadow: 0 1px 3px rgba(0,0,0,.4);
 }
 .photo-overlay .photo-date {
-  color: rgba(255,255,255,.8); font-size: 11px; margin-top: 2px;
+  color: rgba(255,255,255,.8); font-size: 10px; margin-top: 2px;
 }
+/* Floating animation for random photos */
+@keyframes photoFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-4px) rotate(.5deg); }
+  66% { transform: translateY(-2px) rotate(-.3deg); }
+}
+.photo-float-1 { animation: photoPopIn .6s both, photoFloat 4s ease-in-out infinite 1s; }
+.photo-float-2 { animation: photoPopIn .6s both, photoFloat 3.5s ease-in-out infinite 2s; }
+.photo-float-3 { animation: photoPopIn .6s both, photoFloat 5s ease-in-out infinite .5s; }
 /* Lightbox with navigation */
 .photo-lightbox {
   position: fixed; inset: 0; z-index: 99998;
@@ -431,16 +450,17 @@ body {
   color: rgba(255,255,255,.6); font-size: 13px;
 }
 @media (max-width: 768px) {
-  .photo-wall { column-count: 2; column-gap: 8px; }
-  .photo-wall-item { margin-bottom: 8px; }
-  .photo-wall-item .photo-overlay { opacity: 1; padding: 20px 8px 6px; }
-  .photo-overlay .photo-title { font-size: 12px; }
+  .photo-wall { column-count: 3; column-gap: 6px; }
+  .photo-wall-item { margin-bottom: 6px; border-radius: 8px; }
+  .photo-wall-item img { border-radius: 8px; }
+  .photo-wall-item .photo-overlay { opacity: 1; padding: 16px 6px 4px; }
+  .photo-overlay .photo-title { font-size: 11px; }
   .photo-lightbox .lb-nav { width: 36px; height: 36px; font-size: 16px; }
   .photo-lightbox .lb-prev { left: 10px; }
   .photo-lightbox .lb-next { right: 10px; }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
-  .photo-wall { column-count: 3; }
+  .photo-wall { column-count: 4; column-gap: 8px; }
 }
 
 /* ========== Video Card ========== */
@@ -1687,7 +1707,7 @@ function renderPhotos() {
   photoWallData = allPhotos;
 
   wall.innerHTML = allPhotos.map((p, i) => `
-    <div class="photo-wall-item fade-in" onclick="openPhotoLightbox(${i})">
+    <div class="photo-wall-item fade-in ${['photo-float-1','photo-float-2','photo-float-3'][i % 3]}" onclick="openPhotoLightbox(${i})">
       <img src="${p.src}" alt="${p.title}" loading="lazy">
       <div class="photo-overlay">
         <div class="photo-title">${p.title}</div>
