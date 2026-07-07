@@ -558,7 +558,7 @@ body {
 
 /* ========== Loading Screen ========== */
 .loading-screen {
-  position: fixed; inset: 0; z-index: 99999;
+  position: fixed; inset: 0; z-index: 9998;
   background: linear-gradient(135deg, var(--sky), var(--grass));
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; transition: opacity .8s, transform .8s;
@@ -1013,8 +1013,8 @@ body {
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div class="loading-screen" id="loadingScreen">
+<!-- Loading Screen (hidden by default) -->
+<div class="loading-screen" id="loadingScreen" style="display: none;">
   <div class="loading-train">🚂</div>
   <div class="loading-text">安安的小火车正在进站...</div>
   <div class="loading-track"><div class="loading-track-inner"></div></div>
@@ -1441,18 +1441,8 @@ const INLINE_DATA = {
 };
 
 function initApp(skipLoading) {
-  if (!skipLoading) {
-    // Show loading screen for first visit
-    setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-      setTimeout(() => {
-        document.getElementById('loadingScreen').style.display = 'none';
-      }, 800);
-    }, 2500);
-  } else {
-    // Skip loading for returning users
-    document.getElementById('loadingScreen').style.display = 'none';
-  }
+  // Loading screen is disabled to prevent it from blocking the password gate
+  // Previously it had z-index: 99999 which was higher than the gate (z-index: 9999)
   
   // Try fetch first (works on server), fallback to inline data (works locally)
   fetch('data.json')
