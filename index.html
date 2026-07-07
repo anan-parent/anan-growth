@@ -1771,125 +1771,30 @@ document.getElementById('lightbox').addEventListener('click', function() {
   this.classList.remove('active');
 });
 
-// ==================== Particle System ====================
+// ==================== Particle System (Disabled for performance) ====================
 function initParticles() {
+  // Particles disabled to prevent performance issues on mobile/low-end devices
+  // The canvas element remains in DOM but is not animated
   const canvas = document.getElementById('particlesCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let animationId = null;
-  
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  
-  class Particle {
-    constructor() {
-      this.reset();
-    }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = canvas.height + 10;
-      this.size = Math.random() * 4 + 2;
-      this.speedY = Math.random() * 1 + 0.5;
-      this.speedX = Math.random() * 0.6 - 0.3;
-      this.opacity = Math.random() * 0.5 + 0.2;
-      this.type = Math.random() > 0.7 ? 'star' : (Math.random() > 0.5 ? 'circle' : 'heart');
-      this.rotation = Math.random() * 360;
-      this.rotationSpeed = Math.random() * 2 - 1;
-      this.color = ['#90CAF9', '#42A5F5', '#4DB6AC', '#80CBC4', '#FFB74D', '#B3E5FC'][Math.floor(Math.random() * 6)];
-    }
-    update() {
-      this.y -= this.speedY;
-      this.x += this.speedX;
-      this.rotation += this.rotationSpeed;
-      if (this.y < -20) this.reset();
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation * Math.PI / 180);
-      ctx.globalAlpha = this.opacity;
-      ctx.fillStyle = this.color;
-      
-      if (this.type === 'star') {
-        // Draw star
-        ctx.beginPath();
-        for (let i = 0; i < 5; i++) {
-          const angle = (i * 144 - 90) * Math.PI / 180;
-          const x = Math.cos(angle) * this.size;
-          const y = Math.sin(angle) * this.size;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-          const innerAngle = ((i * 144 + 72) - 90) * Math.PI / 180;
-          ctx.lineTo(Math.cos(innerAngle) * this.size * 0.4, Math.sin(innerAngle) * this.size * 0.4);
-        }
-        ctx.closePath();
-        ctx.fill();
-      } else if (this.type === 'heart') {
-        // Draw heart
-        const s = this.size * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(0, -s * 0.3);
-        ctx.bezierCurveTo(-s, -s, -s, s * 0.3, 0, s * 0.8);
-        ctx.bezierCurveTo(s, s * 0.3, s, -s, 0, -s * 0.3);
-        ctx.fill();
-      } else {
-        // Draw circle
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size * 0.6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      
-      ctx.restore();
-    }
-  }
-  
-  // Create particles (limited to 50 for performance)
-  for (let i = 0; i < 50; i++) {
-    const p = new Particle();
-    p.y = Math.random() * canvas.height;
-    particles.push(p);
-  }
-  
-  let frameCount = 0;
-  function animate() {
-    frameCount++;
-    // Skip every other frame on mobile for performance
-    if (window.innerWidth < 768 && frameCount % 2 !== 0) {
-      animationId = requestAnimationFrame(animate);
-      return;
-    }
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-    animationId = requestAnimationFrame(animate);
-  }
-  animate();
-  
-  // Pause when tab is hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      cancelAnimationFrame(animationId);
-    } else {
-      animate();
-    }
-  });
+  if (canvas) canvas.style.display = 'none';
 }
 
 // ==================== Scroll Progress ====================
 function initScrollProgress() {
   const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const percent = (scrollTop / docHeight) * 100;
-    bar.style.width = percent + '%';
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = percent + '%';
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 }
 
