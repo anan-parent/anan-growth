@@ -361,17 +361,22 @@ body {
   border-radius: 10px; overflow: hidden;
   cursor: pointer; position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  opacity: 0;
+  transform: scale(.4) rotate(-8deg);
   transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-  animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+/* Pop-in when visible */
+.photo-wall-item.pop-in {
+  animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) forwards;
 }
 @keyframes photoPopIn {
-  0% { opacity: 0; transform: scale(.3) translateY(30px) rotate(-8deg); }
-  70% { transform: scale(1.05) translateY(-5px) rotate(2deg); }
-  100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
+  0% { opacity: 0; transform: scale(.4) rotate(-8deg) translateY(20px); }
+  60% { opacity: 1; transform: scale(1.08) rotate(2deg) translateY(-6px); }
+  100% { opacity: 1; transform: scale(1) rotate(0) translateY(0); }
 }
 .photo-wall-item:hover {
-  transform: translateY(-6px) scale(1.06) rotate(1deg);
-  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  transform: translateY(-8px) scale(1.08) rotate(1.5deg) !important;
+  box-shadow: 0 14px 36px rgba(255,120,0,.2), 0 8px 20px rgba(0,0,0,.12);
   z-index: 2;
 }
 .photo-wall-item img {
@@ -380,7 +385,7 @@ body {
   transition: transform .5s cubic-bezier(.34,1.56,.64,1);
 }
 .photo-wall-item:hover img {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 .photo-wall-item .photo-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -397,15 +402,14 @@ body {
 .photo-overlay .photo-date {
   color: rgba(255,255,255,.8); font-size: 10px; margin-top: 2px;
 }
-/* Floating animation for random photos */
+/* Gentle float after pop-in */
 @keyframes photoFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-4px) rotate(.5deg); }
-  66% { transform: translateY(-2px) rotate(-.3deg); }
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(.6deg); }
 }
-.photo-float-1 { animation: photoPopIn .6s both, photoFloat 4s ease-in-out infinite 1s; }
-.photo-float-2 { animation: photoPopIn .6s both, photoFloat 3.5s ease-in-out infinite 2s; }
-.photo-float-3 { animation: photoPopIn .6s both, photoFloat 5s ease-in-out infinite .5s; }
+.photo-wall-item.float-1 { animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) forwards, photoFloat 4s ease-in-out infinite 1.5s; }
+.photo-wall-item.float-2 { animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) forwards, photoFloat 3.5s ease-in-out infinite 2.5s; }
+.photo-wall-item.float-3 { animation: photoPopIn .6s cubic-bezier(.34,1.56,.64,1) forwards, photoFloat 5s ease-in-out infinite 1s; }
 /* Lightbox with navigation */
 .photo-lightbox {
   position: fixed; inset: 0; z-index: 99998;
@@ -1707,7 +1711,7 @@ function renderPhotos() {
   photoWallData = allPhotos;
 
   wall.innerHTML = allPhotos.map((p, i) => `
-    <div class="photo-wall-item fade-in ${['photo-float-1','photo-float-2','photo-float-3'][i % 3]}" onclick="openPhotoLightbox(${i})">
+    <div class="photo-wall-item ${['float-1','float-2','float-3'][i % 3]}" style="animation-delay:${i * 0.08}s" onclick="openPhotoLightbox(${i})">
       <img src="${p.src}" alt="${p.title}" loading="lazy">
       <div class="photo-overlay">
         <div class="photo-title">${p.title}</div>
@@ -1715,6 +1719,17 @@ function renderPhotos() {
       </div>
     </div>
   `).join('');
+
+  // Trigger pop-in animation with stagger via IntersectionObserver
+  const photoObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('pop-in');
+        photoObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  wall.querySelectorAll('.photo-wall-item').forEach(el => photoObs.observe(el));
 }
 
 function openPhotoLightbox(idx) {
